@@ -13,31 +13,30 @@ It allows you to send, get, and delete pastes from PrivateBin instances.
 
 
 default headers:
-```python
-{
-    'X-Requested-With': 'JSONHttpRequest', 
-    'User-Agent': 'PrivateBinRequest/1.0.0'
-}
-```
+
+.. code:: python
+   {
+      'X-Requested-With': 'JSONHttpRequest', 
+      'User-Agent': 'PrivateBinRequest/1.0.0'
+   }
 
 You can adjust the headers by passing a dictionary to the `headers` parameter in the `send`, `get`, and `delete` functions.
 
-```python
-import pbrequest
-pbrequest.set_headers({
-    'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 
-    'User-Agent': 'Mozilla/5.0',
-    'Custom-Header': 'Custom-Value'
-})
+.. code:: python
+   import pbrequest
+   pbrequest.set_headers({
+      'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 
+      'User-Agent': 'Mozilla/5.0',
+      'Custom-Header': 'Custom-Value'
+   })
 
-response = pbrequest.send(
-    "https://vim.cx",
-    text="Hello, world!",
-    burn_after_reading=True
-)
+   response = pbrequest.send(
+      "https://vim.cx",
+      text="Hello, world!",
+      burn_after_reading=True
+   )
 
-print(response)
-```
+   print(response)
 
 Installing PrivateBin Request and Supported Versions
 ------------------------------------------------
