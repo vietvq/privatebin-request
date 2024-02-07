@@ -15,6 +15,7 @@ It allows you to send, get, and delete pastes from PrivateBin instances.
 default headers:
 
 .. code:: python
+
    {
       'X-Requested-With': 'JSONHttpRequest', 
       'User-Agent': 'PrivateBinRequest/1.0.0'
@@ -23,6 +24,7 @@ default headers:
 You can adjust the headers by passing a dictionary to the `headers` parameter in the `send`, `get`, and `delete` functions.
 
 .. code:: python
+
    import pbrequest
    pbrequest.set_headers({
       'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 
