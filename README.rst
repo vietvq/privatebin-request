@@ -1,23 +1,54 @@
 ==============
-PrivateBin API
+PrivateBin Request forked from PrivateBin Request
 ==============
 
 |Codacy Badge| |codecov| |Build Status| |Maintainability| |Code Climate issues| |Code Climate technical debt|
 |GitHub repo size| |License badge|
 
-PrivateBin API is a wrapper for API interactions with PrivateBin instances.
+Added the ability to adjust http headers that request to PrivateBin instances.
+
+(Should have the same content as PrivateBin API README.md)
+PrivateBin Request is a wrapper for API interactions with PrivateBin instances.
 It allows you to send, get, and delete pastes from PrivateBin instances.
 
-Installing PrivateBin API and Supported Versions
+
+default headers:
+```python
+{
+    'X-Requested-With': 'JSONHttpRequest', 
+    'User-Agent': 'PrivateBinRequest/1.0.0'
+}
+```
+
+You can adjust the headers by passing a dictionary to the `headers` parameter in the `send`, `get`, and `delete` functions.
+
+```python
+import pbrequest
+pbrequest.set_headers({
+    'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 
+    'User-Agent': 'Mozilla/5.0',
+    'Custom-Header': 'Custom-Value'
+})
+
+response = pbrequest.send(
+    "https://vim.cx",
+    text="Hello, world!",
+    burn_after_reading=True
+)
+
+print(response)
+```
+
+Installing PrivateBin Request and Supported Versions
 ------------------------------------------------
 
-PrivateBin API is available on PyPI:
+PrivateBin Request is available on PyPI:
 
 .. code:: console
 
-   $ python -m pip install privatebinapi
+   $ python -m pip install pbrequest
 
-PrivateBin API officially supports Python 3.6+.
+PrivateBin Request officially supports Python 3.6+.
 
 Features
 --------
@@ -34,17 +65,17 @@ Examples
 Basic usage
 ~~~~~~~~~~~
 
-PrivateBin API is designed to be as easy to use as possible. A quick
+PrivateBin Request is designed to be as easy to use as possible. A quick
 example of the most basic features is shown below:
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> send_response = privatebinapi.send("https://vim.cx", text="Hello, world!")
-   >>> get_response = privatebinapi.get(send_response["full_url"])
+   >>> import pbrequest
+   >>> send_response = pbrequest.send("https://vim.cx", text="Hello, world!")
+   >>> get_response = pbrequest.get(send_response["full_url"])
    >>> get_response['text'] == "Hello, world!"
    True
-   >>> delete_response = privatebinapi.delete(send_response["full_url"], send_response["deletetoken"])
+   >>> delete_response = pbrequest.delete(send_response["full_url"], send_response["deletetoken"])
 
 Each function returns a modified version of the JSON received from the PrivateBin instance.
 
@@ -58,8 +89,8 @@ To send a paste containing nothing but text, do the following:
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send("https://vim.cx", text="Hello, world!")
+   >>> import pbrequest
+   >>> response = pbrequest.send("https://vim.cx", text="Hello, world!")
 
 You can expect the send function to return something similar to the following:
 
@@ -88,8 +119,8 @@ The default is ``"1day"``.
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     expiration="5min"
@@ -102,8 +133,8 @@ Putting a password on your paste is easy:
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     password="Secure123!"
@@ -117,8 +148,8 @@ There are only two valid options for this parameter: ``"zlib"`` and
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     compression=None
@@ -133,8 +164,8 @@ There are only three valid options for this parameter: ``"plaintext"``,
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     formatting="markdown"
@@ -149,8 +180,8 @@ If you want a paste to be deleted immediately after being read, pass
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     burn_after_reading=True
@@ -164,8 +195,8 @@ default is ``False``.
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     discussion=True
@@ -178,8 +209,8 @@ Getting a paste from a PrivateBin instance is very easy:
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.get("https://example.com/?fakePasteLink#1234567890")
+   >>> import pbrequest
+   >>> response = pbrequest.get("https://example.com/?fakePasteLink#1234567890")
 
 You can expect the get function to return something similar to the following:
 
@@ -208,8 +239,8 @@ If the paste is password protected, use the *password* parameter.
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.get(
+   >>> import pbrequest
+   >>> response = pbrequest.get(
    ...     "https://example.com/?fakePasteLink#1234567890",
    ...     password="Secure123!"
    ... )
@@ -231,8 +262,8 @@ To delete a paste, you need its URL and delete token.
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.delete(
+   >>> import pbrequest
+   >>> response = pbrequest.delete(
    ...     "https://example.com/?fakePasteLink#1234567890",
    ...     "fake1delete2token3"
    ... )
@@ -246,8 +277,8 @@ package.
 
 .. code:: python
 
-   >>> import privatebinapi
-   >>> response = privatebinapi.send(
+   >>> import pbrequest
+   >>> response = pbrequest.send(
    ...     "https://vim.cx",
    ...     text="Hello, world!",
    ...     proxies={
@@ -259,23 +290,23 @@ package.
 Using Async Functions
 ~~~~~~~~~~~~~~~~~~~~~
 
-``privatebinapi.send``, ``privatebinapi.get`` and
-``privatebinapi.delete`` all have async analogs. They accept all the
+``pbrequest.send``, ``pbrequest.get`` and
+``pbrequest.delete`` all have async analogs. They accept all the
 same parameters that their synchronous counterparts do.
 
 .. code:: python
 
    import asyncio
 
-   import privatebinapi
+   import pbrequest
 
    async def main():
-       send_response = await privatebinapi.send_async(
+       send_response = await pbrequest.send_async(
            "https://vim.cx",
            text="Hello, world!"
        )
-       get_response = await privatebinapi.get_async(send_response["full_url"])
-       delete_response = await privatebinapi.delete_async(
+       get_response = await pbrequest.get_async(send_response["full_url"])
+       delete_response = await pbrequest.delete_async(
            send_response["full_url"],
            send_response["deletetoken"]
        )
@@ -283,7 +314,7 @@ same parameters that their synchronous counterparts do.
    loop = asyncio.get_event_loop()
    loop.run_until_complete(main())
 
-Both ``privatebinapi.send`` and ``privatebinapi.get`` do encryption and
+Both ``pbrequest.send`` and ``pbrequest.get`` do encryption and
 decryption using an executor_. It will use the default
 executor for your event loop if *executor* is ``None``.
 
@@ -291,7 +322,7 @@ executor for your event loop if *executor* is ``None``.
 
 License
 ~~~~~~~
-PrivateBin API is offered under the `MIT license`_.
+PrivateBin Request is offered under the `MIT license`_.
 
 .. _MIT license: https://github.com/Pioverpie/privatebin-api/blob/master/LICENSE
 

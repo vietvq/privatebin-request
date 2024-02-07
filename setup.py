@@ -4,14 +4,14 @@ with open('README.rst') as file:
     long_description = file.read()
 
 setuptools.setup(
-    name='PrivateBinAPI',
+    name='PrivateBinRequest',
     version='1.0.0',
-    author='Pioverpie',
+    author='vietvo',
     description='A wrapper for the PrivateBin API',
     long_description=long_description,
     long_description_content_type='text/x-rst',
-    url='https://github.com/Pioverpie/privatebin-api/',
-    packages=['privatebinapi'],
+    url='https://github.com/vietvq/privatebin-request',
+    packages=['pbrequest'],
     install_requires=['PBinCLI', 'requests', 'httpx'],
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -26,10 +26,10 @@ setuptools.setup(
         'Programming Language :: Python :: 3.9',
         'Topic :: Security :: Cryptography',
     ],
-    keywords='privatebin pastebin',
+    keywords='privatebin pastebin encryption cryptography api wrapper http requests httpx headers',
     project_urls={
-        'Source': 'https://github.com/Pioverpie/privatebin-api/',
-        'Issues': 'https://github.com/Pioverpie/privatebin-api/issues/'
+        'Source': 'https://github.com/vietvq/privatebin-request/',
+        'Issues': 'https://github.com/vietvq/privatebin-requestissues/'
     },
     python_requires='>=3.6',
 )
